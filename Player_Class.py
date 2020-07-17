@@ -2,7 +2,7 @@ class Player_Class:
 
     keys_in_hand = {}
 
-    def __init__(self):
+    def __init__(self, player_position):
         pass
         
     def get_key(self, key_name):

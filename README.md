@@ -3,7 +3,7 @@ Mahjong project to build a game engine for mahjong, and hopefully build an RL ag
 
 ## Prerequisites
 ### Code Standards
-- 5 blank lines before start of new function in class
+- 4 blank lines before start of new function in class
 - be as descriptive as possible (ie: number_of_keys, ~~num_keys~~)
 
 ## Class Descriptions

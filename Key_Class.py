@@ -24,7 +24,6 @@ class Key_Class:
 
 
 
-
     def __init__(self):
         for key_name in self.key_dictionary:
             self.available_keys[key_name] = 4
@@ -38,8 +37,8 @@ class Key_Class:
         for count in self.available_keys.values():
             number_of_keys += count
 
-        assert number_of_keys == self.NUMBER_OF_KEYS, "Error! Initialized keys do not total to 144!"
-
+        if number_of_keys != self.NUMBER_OF_KEYS:
+            raise AssertionError("Error! Initialized keys do not total to 144!")
 
 
 
@@ -59,7 +58,6 @@ class Key_Class:
 
 
 
-
     def throwaway_key(self, throw_key):
         if throw_key not in self.key_dictionary:
             raise Exception("Error! Attempted to throw away non-existent key!")
@@ -73,7 +71,6 @@ class Key_Class:
             self.thrown_keys[throw_key] += 1
 
         self.latest_thrown_key = throw_key
-
 
 
 

@@ -19,20 +19,23 @@ Individual template for creating players (default 4), handles keys in hand for i
 - **get_key(key_name)**
     - Adds key_name to self, ideally pulled from main script from Key_Class
 
-- **check_pong()**
+- **check_pong(thrown_key)**
     - Checks whether pong is available with keys in self
+    - Returns: pong_doable (bool)
 
-- **do_pong(pong_available)**
-    - Performs pong based on whether pong_available is true, pong_available to be pulled form main (to check if previous player has pong-ed)
+- **do_pong()**
+    - Performs pong
 
-- **check_chi(previous_player_number)**
+- **check_chi(previous_player_number, thrown_key)**
     - Checks whether chi is available with keys in self, previous_player_number to be received from main (to check if precedence is followed)
+    - Returns: chi_doable (bool)
 
-- **do_chi(chi_available)**
-    - Performs chi based on whether chi_available is true, chi_available to be pulled form main (to check if previous player has chi-ed)
+- **do_chi()**
+    - Performs chi
 
 - **is_win(is_win)**
     - Declares internal win based on is_win received from Reward_Class
+    - Returns: has_win (bool)
 
 - **count_points(points)**
     - Sets internal points based on points received from Reward_Class

@@ -1,5 +1,5 @@
 # Deep Mahjong
-Mahjong project to build a ame engine for mahjong, and hopefully build an RL agent to play the game.
+Mahjong project to build a game engine for mahjong, and hopefully build an RL agent to play the game.
 
 ## Prerequisites
 Non for now.
@@ -14,7 +14,19 @@ Class that provides a centralized location for all the keys, handles all outputs
     - Returns: key_name (string)
 
 ### Player_Class
-Individual template for creating players (default 4), handles keys in hand for individual players, abilities to pong/chi, calls `calc_points` and check_win from `point_system` class
+Individual template for creating players (default 4), handles keys in hand for individual players, abilities to pong/chi, auto implements point_calc and check_win
 
 - **get_key(key_name)**
-    - Adds key_name to self, ideally pulled from main script 
+    - Adds key_name to self, ideally pulled from main script from Key_Class
+
+- **check_pong()**
+    - Checks whether pong is available with keys in self
+
+- **do_pong(pong_available)**
+    - Performs pong based on whether pong_available is true, pong_available to be pulled form main (to check if previous player has pong-ed)
+
+- **check_chi(previous_player_number)**
+    - Checks whether chi is available with keys in self, previous_player_number to be received from main (to check if precedence is followed)
+
+- **do_chi(chi_available)**
+    - Performs chi based on whether chi_available is true, chi_available to be pulled form main (to check if previous player has chi-ed)

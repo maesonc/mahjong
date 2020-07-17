@@ -2,7 +2,9 @@
 Mahjong project to build a game engine for mahjong, and hopefully build an RL agent to play the game.
 
 ## Prerequisites
-Non for now.
+### Code Standards
+- 5 blank lines before start of new function in class
+- be as descriptive as possible (ie: number_of_keys ~~num_keys~~)
 
 ## Class Descriptions
 
@@ -10,11 +12,15 @@ Non for now.
 Class that provides a centralized location for all the keys, handles all outputs of available keys from the centre stack. Also manages keys in throwaway pile
 
 - **give_key()**
-    - Gives a string representing the given key.
+    - Gives a string representing the given key
     - Returns: key_name (string)
 
 - **throwaway_key(throw_key)**
     - Adds key to throwaway pile
+
+- **give_latest_thrown_key()**
+    - Gives string representing latest thrown key
+    - Return: latest_thrown_key(string)
 
 ### Player_Class
 Individual template for creating players (default 4), handles keys in hand for individual players, abilities to pong/chi

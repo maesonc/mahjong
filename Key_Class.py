@@ -6,6 +6,7 @@ class Key_Class:
 
     available_keys = {}
     thrown_keys = {}
+    latest_thrown_key = None
     key_dictionary= [
         '1man', '2man', '3man', '4man', '5man', '6man', '7man', '8man', '9man',
         
@@ -19,6 +20,10 @@ class Key_Class:
         
         'fa1', 'fa2', 'fa3', 'fa4'
         ]
+
+
+
+
 
     def __init__(self):
         for key_name in self.key_dictionary:
@@ -34,10 +39,14 @@ class Key_Class:
             number_of_keys += count
 
         assert number_of_keys == self.NUMBER_OF_KEYS, "Error! Initialized keys do not total to 144!"
-        
+
+
+
+
+
     def give_key(self):
         if len(self.available_keys) < 1:
-            raise Exception("Error! Attempted to draw key from completed pile!")
+            raise AssertionError("Error! Attempted to draw key from empty key stack!")
 
         random_key = random.choice(list(self.available_keys))
 
@@ -47,13 +56,29 @@ class Key_Class:
 
         return random_key
 
+
+
+
+
     def throwaway_key(self, throw_key):
-        assert throw_key in self.key_dictionary, "Error! Attempted to throw away non-existent key!"
+        if throw_key not in self.key_dictionary:
+            raise Exception("Error! Attempted to throw away non-existent key!")
 
         if throw_key not in self.thrown_keys:
             self.thrown_keys[throw_key] = 1
         else:
-            assert self.thrown_keys[throw_key] < 4, "Error! Attempted to throw away key that's been thrown four times!"
+            if self.thrown_keys[throw_key] >= 4:
+                raise AssertionError("Error! Attempted to throw away key that's been thrown four times!")
+
             self.thrown_keys[throw_key] += 1
+
+        self.latest_thrown_key = throw_key
+
+
+
+
+
+    def give_latest_thrown_key(self):
+        return self.latest_thrown_key
 
         

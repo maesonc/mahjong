@@ -14,7 +14,7 @@ Class that provides a centralized location for all the keys, handles all outputs
     - Returns: key_name (string)
 
 ### Player_Class
-Individual template for creating players (default 4), handles keys in hand for individual players, abilities to pong/chi, auto implements point_calc and check_win
+Individual template for creating players (default 4), handles keys in hand for individual players, abilities to pong/chi
 
 - **get_key(key_name)**
     - Adds key_name to self, ideally pulled from main script from Key_Class
@@ -30,3 +30,12 @@ Individual template for creating players (default 4), handles keys in hand for i
 
 - **do_chi(chi_available)**
     - Performs chi based on whether chi_available is true, chi_available to be pulled form main (to check if previous player has chi-ed)
+
+- **is_win(is_win)**
+    - Declares internal win based on is_win received from Reward_Class
+
+- **count_points(points)**
+    - Sets internal points based on points received from Reward_Class
+
+### Reward_Class
+Static Class to take in player keys and output is_win and points

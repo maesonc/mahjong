@@ -7,3 +7,6 @@ class Key_Class:
         
     def give_key(self):
         pass
+
+    def throwaway_key(self, throw_key):
+        pass

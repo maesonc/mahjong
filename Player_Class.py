@@ -8,14 +8,23 @@ class Player_Class:
     def get_key(self, key_name):
         pass
 
-    def check_pong(self, thrown_key):
+    def throw_key(self):
         pass
 
-    def do_pong(self):
+    def check_pong(self, option_key):
         pass
 
-    def check_chi(self, previous_player_number, thrown_key):
+    def do_pong(self, option_key):
         pass
 
-    def do_chi(self):
+    def check_chi(self, previous_player_number, option_key):
+        pass
+
+    def do_chi(self, option_key):
+        pass
+
+    def count_points(self):
+        pass
+
+    def is_win(self):
         pass

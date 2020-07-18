@@ -1,11 +1,13 @@
 from Key_Class import Key_Class
 
 class Player_Class:
+    
+    key_dictionary = Key_Class.key_dictionary
 
     def __init__(self, player_position):
 
         self.player_number = None
-        self.key_dictionary = Key_Class.key_dictionary
+        
         self.keys_in_hand = {}
 
         self.pong_in_hand = {}

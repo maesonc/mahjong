@@ -52,7 +52,7 @@ class Player_Class:
 
 
 
-    
+
     def check_pong(self, option_key):
         self.check_if_key_in_dictionary(option_key)
 
@@ -83,7 +83,7 @@ class Player_Class:
 
 
     def check_chi(self, previous_player_number, option_key):
-        pass
+        
 
     def do_chi(self, option_key):
         pass

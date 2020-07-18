@@ -55,4 +55,4 @@ Individual template for creating players (default 4), handles keys in hand for i
 - **count_points()**
     - Checks for hand completion with in-hand keys
     - Returns: (percent_complete, is_win)
-    
+

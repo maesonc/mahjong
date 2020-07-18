@@ -28,9 +28,8 @@ Individual template for creating players (default 4), handles keys in hand for i
 - **get_key(key_name)**
     - Adds key_name to self, ideally pulled from main script from Key_Class
 
-- **throw_key()**
+- **throw_key()** - Maeson
     - Throws a key from hand
-    - Returns: throw_key (string)
 
 - **check_pong(option_key)**
     - Checks whether pong is available with keys in self

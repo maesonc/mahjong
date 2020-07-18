@@ -39,11 +39,17 @@ class Player_Class:
         else:
             self.keys_in_hand[key_name] += 1
 
-    
+    def throw_key(self, key):
 
-    
-    def throw_key(self):
-        pass
+        if key not in self.key_dictionary:
+            raise Exception("Player " + str(self.player_number) + " error! Attempted to throw away non-esistent key!")
+
+        if key not in self.keys_in_hand:
+            raise Exception("Player " + str(self.player_number) + " error! Attempted to throw away key that's not in hand!")
+        elif self.keys_in_hand[key] > 1:
+            self.keys_in_hand[key] -= 1
+        else:
+            del self.keys_in_hand[key]
 
 
 

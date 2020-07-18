@@ -25,13 +25,16 @@ Class that provides a centralized location for all the keys, handles all outputs
 ### Player_Class
 Individual template for creating players (default 4), handles keys in hand for individual players, abilities to pong/chi
 
-- **get_key(key_name)**
+- **check_if_key_in_dictionary(key)** - Jet
+    - Checks if key is in dictionary
+
+- **get_key(key_name)** - Jet
     - Adds key_name to self, ideally pulled from main script from Key_Class
 
-- **throw_key(key)** - Maeson
+- **throw_key(key_name)** - Maeson
     - Throws a key from hand
 
-- **check_pong(option_key)**
+- **check_pong(option_key)** - Jet
     - Checks whether pong is available with keys in self
     - Returns: pong_doable (bool)
 

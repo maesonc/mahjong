@@ -5,7 +5,13 @@ from Player_Class import Player_Class
 Keys = Key_Class()
 
 # instantiate players
-Player1 = Player_Class(1)
-Player2 = Player_Class(2)
-Player3 = Player_Class(3)
-Player4 = Player_Class(4)
+Player = []
+for i in range(4):
+    Player.append(Player_Class(i))
+
+intermediate_key = Keys.give_key()
+Player[0].get_key(intermediate_key)
+for _ in range(15):
+    for i in range(4):
+        intermediate_key = Keys.give_key()
+        Player[i].get_key(intermediate_key)

@@ -2,28 +2,27 @@ from Key_Class import Key_Class
 
 class Player_Class:
 
-    player_number = None
-    key_dictionary = Key_Class.key_dictionary
-    keys_in_hand = {}
-
-    pong_in_hand = {}
-    chi_in_hand = {}
-    pong_done = 0
-    chi_done = 0
-
-    allowable_keys_in_hand = 13
-
-    error_string = None
-
-
-
     def __init__(self, player_position):
+
+        self.player_number = None
+        self.key_dictionary = Key_Class.key_dictionary
+        self.keys_in_hand = {}
+
+        self.pong_in_hand = {}
+        self.chi_in_hand = {}
+        self.pong_done = 0
+        self.chi_done = 0
+
+        self.allowable_keys_in_hand = 13
+
+        self.error_string = None
+
         self.player_number = player_position
 
-        if 1 <= self.player_number and self.player_number <= 4:
+        if 0 <= self.player_number and self.player_number <= 3:
             pass
         else:
-            raise AssertionError("Cannot instantiate player with with number not between 1 and 4!")
+            raise AssertionError("Cannot instantiate player with with number not between 0 and 3!")
 
         self.error_string = "Player " + str(self.player_number) + " error! "
 
@@ -46,7 +45,7 @@ class Player_Class:
             number_of_keys_in_hand += key_count
 
         if number_of_keys_in_hand > self.allowable_keys_in_hand:
-            raise AssertionError(self.error_string + "Attempted to receive key when there are already more than 13 keys in hand!")
+            raise AssertionError(self.error_string + "Attempted to receive key when there are already more than " + str(self.allowable_keys_in_hand + 1) + " keys in hand!")
 
         if key_name not in self.keys_in_hand:
             self.keys_in_hand[key_name] = 1

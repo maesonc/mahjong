@@ -40,7 +40,6 @@ class Player_Class:
             self.keys_in_hand[key_name] += 1
 
     def throw_key(self, key):
-
         if key not in self.key_dictionary:
             raise Exception("Player " + str(self.player_number) + " error! Attempted to throw away non-esistent key!")
 
@@ -63,6 +62,9 @@ class Player_Class:
 
         return False
 
+
+
+
     def do_pong(self, option_key):
         self.check_if_key_in_dictionary(option_key)
 
@@ -76,6 +78,8 @@ class Player_Class:
             return
         else:
             raise AssertionError("Player " + str(self.player_number) + " error! We do not have exactly 3 of the same key for display after pong!")
+
+
 
 
     def check_chi(self, previous_player_number, option_key):

@@ -31,7 +31,7 @@ Individual template for creating players (default 4), handles keys in hand for i
 - **get_key(key_name)** - Jet
     - Adds key_name to self, ideally pulled from main script from Key_Class
 
-- **throw_key()** - Maeson
+- **throw_key(key_name)** - Maeson
     - Throws a key from hand
 
 - **check_pong(option_key)** - Jet

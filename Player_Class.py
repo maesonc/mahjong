@@ -18,6 +18,30 @@ class Player_Class:
 
 
 
+    def check_chi_adjacent(self,option_key):
+            if str(int(option_key[0])+1)+option_key[1:] in self.keys_in_hand and str(int(option_key[0])+2)+option_key[1:] in self.keys_in_hand:
+                print ('+1+2')
+                return True
+            elif str(int(option_key[0])-1)+option_key[1:] in self.keys_in_hand and str(int(option_key[0])+1)+option_key[1:] in self.keys_in_hand:
+                print ('-1+1')
+                return True
+            elif str(int(option_key[0])-1)+option_key[1:] in self.keys_in_hand and str(int(option_key[0])-2)+option_key[1:] in self.keys_in_hand:
+                print ('-1-2')
+                return True
+            else:
+                return False
+
+
+
+    def check_previous_player(self, previous_player):
+        if previous_player == 3:
+            player = 0
+        else:
+            player = previous_player + 1
+        return (player)
+
+
+
     def check_if_key_in_dictionary(self, key):
         if key not in self.key_dictionary:
             raise Exception("Player " + str(self.player_number) + " error! Unknown key!")
@@ -83,11 +107,22 @@ class Player_Class:
 
 
 
-    def check_chi(self, previous_player_number, option_key):
-        
+    def check_chi(self, option_key, previous_player):
+        self.check_if_key_in_dictionary(option_key)
+        if option_key[0].isnumeric() and (self.player_number == self.check_previous_player(previous_player)):
+           return(self.check_chi_adjacent(option_key))
+        else:
+            return False
+
+
+
 
     def do_chi(self, option_key):
         pass
+
+
+
+
 
     def count_points(self):
         pass
@@ -101,10 +136,10 @@ class Player_Class:
         for _, value in self.keys_in_hand:
             if value >= 3:
                 complete_sets += 1
-            
+
             if value > 4:
                 raise Exception(self.error_string + "Somehow we have more than sets of 4 when checking for win!")
-        
+
         if complete_sets > 4:
             raise Exception("")
 

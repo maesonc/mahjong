@@ -7,11 +7,13 @@ class Player_Class:
     keys_in_hand = {}
     keys_for_display = {}
 
+    error_string = None
 
 
 
     def __init__(self, player_position):
         self.player_number = player_position
+        self.error_string = "Player " + str(self.player_number) + " error! "
 
 
 
@@ -32,7 +34,7 @@ class Player_Class:
             number_of_keys_in_hand += key_count
 
         if number_of_keys_in_hand > 13:
-            raise AssertionError("Player " + str(self.player_number) + "error! Attempted to receive key when there are already more than 13 keys in hand!")
+            raise AssertionError(self.error_string + "Attempted to receive key when there are already more than 13 keys in hand!")
 
         if key_name not in self.keys_in_hand:
             self.keys_in_hand[key_name] = 1
@@ -40,11 +42,10 @@ class Player_Class:
             self.keys_in_hand[key_name] += 1
 
     def throw_key(self, key):
-        if key not in self.key_dictionary:
-            raise Exception("Player " + str(self.player_number) + " error! Attempted to throw away non-esistent key!")
+        self.check_if_key_in_dictionary(key)
 
         if key not in self.keys_in_hand:
-            raise Exception("Player " + str(self.player_number) + " error! Attempted to throw away key that's not in hand!")
+            raise Exception(self.error_string + "Attempted to throw away key that's not in hand!")
         elif self.keys_in_hand[key] > 1:
             self.keys_in_hand[key] -= 1
         else:
@@ -71,13 +72,13 @@ class Player_Class:
         if option_key in self.keys_in_hand:
             self.keys_in_hand[option_key] += 1
         else:
-            raise AssertionError("Player " + str(self.player_number) + " error! Tried to pong a key that we do not own")
+            raise AssertionError(self.error_string + "Tried to pong a key that we do not own")
 
         if self.keys_in_hand[option_key] == 3:
             self.keys_for_display[option_key] = 3
             return
         else:
-            raise AssertionError("Player " + str(self.player_number) + " error! We do not have exactly 3 of the same key for display after pong!")
+            raise AssertionError(self.error_string + "We do not have exactly 3 of the same key for display after pong!")
 
 
 
@@ -91,5 +92,24 @@ class Player_Class:
     def count_points(self):
         pass
 
+
+
+
     def is_win(self):
-        pass
+        complete_sets = 0
+
+        for _, value in self.keys_in_hand:
+            if value >= 3:
+                complete_sets += 1
+            
+            if value > 4:
+                raise Exception(self.error_string + "Somehow we have more than sets of 4 when checking for win!")
+        
+        if complete_sets > 4:
+            raise Exception("")
+
+        if complete_sets == 4:
+            return True
+        else:
+            return False
+

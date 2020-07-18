@@ -3,3 +3,6 @@ from Player_Class import Player_Class
 
 # instantiate keys
 Keys = Key_Class()
+
+Player1 = Player_Class(1)
+print(Player1.key_dictionary)

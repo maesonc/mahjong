@@ -41,6 +41,14 @@ Individual template for creating players (default 4), handles keys in hand for i
 - **do_pong(option_key)** - Jet
     - Performs pong
 
+- **check_kong(option_key)**
+    - Checks if kong is available
+    - Return: kong_doable (bool)
+
+- **do_kong(option_key)**
+    - Performs kong
+    - Return: did_kong (bool)
+
 - **check_chi(previous_player_number, option_key)**
     - Checks whether chi is available with keys in self, previous_player_number to be received from main (to check if precedence is followed)
     - Returns: chi_doable (bool)

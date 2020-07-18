@@ -5,7 +5,9 @@ class Player_Class:
     player_number = None
     key_dictionary = Key_Class.key_dictionary
     keys_in_hand = {}
-    keys_for_display = {}
+    pong_in_hand = {}
+    pong_done = 0
+    chi_done = 0
 
     error_string = None
 
@@ -13,6 +15,12 @@ class Player_Class:
 
     def __init__(self, player_position):
         self.player_number = player_position
+
+        if 1 <= self.player_number and self.player_number <= 4:
+            pass
+        else:
+            raise AssertionError("Cannot instantiate player with with number not between 1 and 4!")
+
         self.error_string = "Player " + str(self.player_number) + " error! "
 
 
@@ -75,7 +83,8 @@ class Player_Class:
             raise AssertionError(self.error_string + "Tried to pong a key that we do not own")
 
         if self.keys_in_hand[option_key] == 3:
-            self.keys_for_display[option_key] = 3
+            self.pong_in_hand[option_key] = 3
+            self.pong_done += 1
             return
         else:
             raise AssertionError(self.error_string + "We do not have exactly 3 of the same key for display after pong!")
@@ -106,7 +115,7 @@ class Player_Class:
                 raise Exception(self.error_string + "Somehow we have more than sets of 4 when checking for win!")
         
         if complete_sets > 4:
-            raise Exception("")
+            raise Exception(self.error_string + "Somehow we have more than 4 complete sets when checking for win!")
 
         if complete_sets == 4:
             return True

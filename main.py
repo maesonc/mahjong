@@ -4,9 +4,8 @@ from Player_Class import Player_Class
 # instantiate keys
 Keys = Key_Class()
 
+# instantiate players
 Player1 = Player_Class(1)
-Player1.get_key('1man')
-Player1.get_key('1man')
-print (Player1.keys_in_hand)
-Player1.throw_key('1man')
-print (Player1.keys_in_hand)
+Player2 = Player_Class(2)
+Player3 = Player_Class(3)
+Player4 = Player_Class(4)

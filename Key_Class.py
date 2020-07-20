@@ -22,8 +22,6 @@ class Key_Class:
         ]
 
 
-
-
     def __init__(self):
         for key_name in self.key_dictionary:
             self.available_keys[key_name] = 4
@@ -41,8 +39,6 @@ class Key_Class:
             raise AssertionError("Error! Initialized keys do not total to 144!")
 
 
-
-
     def give_key(self):
         if len(self.available_keys) < 1:
             raise AssertionError("Error! Attempted to draw key from empty key stack!")
@@ -54,8 +50,6 @@ class Key_Class:
             del self.available_keys[random_key]
 
         return random_key
-
-
 
 
     def throwaway_key(self, throw_key):
@@ -73,9 +67,17 @@ class Key_Class:
         self.latest_thrown_key = throw_key
 
 
-
-
     def give_latest_thrown_key(self):
         return self.latest_thrown_key
+
+
+    # count number of keys owned
+    def count_keys(self):
+        remaining_key_count = 0
+
+        for count in self.available_keys.values():
+            remaining_key_count += count
+
+        return remaining_key_count
 
 

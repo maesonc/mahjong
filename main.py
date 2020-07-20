@@ -3,9 +3,15 @@ from Player_Class import Player_Class
 
 # instantiate keys
 Keys = Key_Class()
-Player1 = Player_Class(1)
-Player1.get_key('1man')
-Player1.get_key('2man')
-print (Player1.keys_in_hand)
-print (Player1.check_chi('4man'))
 
+# instantiate players
+Player = []
+for i in range(4):
+    Player.append(Player_Class(i))
+
+intermediate_key = Keys.give_key()
+Player[0].get_key(intermediate_key)
+for _ in range(15):
+    for i in range(4):
+        intermediate_key = Keys.give_key()
+        Player[i].get_key(intermediate_key)

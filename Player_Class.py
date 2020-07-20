@@ -2,17 +2,30 @@ from Key_Class import Key_Class
 
 class Player_Class:
 
-    player_number = None
     key_dictionary = Key_Class.key_dictionary
-    keys_in_hand = {}
-    keys_for_display = {}
-
-    error_string = None
-
-
 
     def __init__(self, player_position):
+
+        self.player_number = None
+
+        self.keys_in_hand = {}
+
+        self.pong_in_hand = {}
+        self.chi_in_hand = {}
+        self.pong_done = 0
+        self.chi_done = 0
+
+        self.allowable_keys_in_hand = 13
+
+        self.error_string = None
+
         self.player_number = player_position
+
+        if 0 <= self.player_number and self.player_number <= 3:
+            pass
+        else:
+            raise AssertionError("Cannot instantiate player with with number not between 0 and 3!")
+
         self.error_string = "Player " + str(self.player_number) + " error! "
 
 
@@ -57,13 +70,16 @@ class Player_Class:
         for key_count in self.keys_in_hand.values():
             number_of_keys_in_hand += key_count
 
-        if number_of_keys_in_hand > 13:
-            raise AssertionError(self.error_string + "Attempted to receive key when there are already more than 13 keys in hand!")
+        if number_of_keys_in_hand > self.allowable_keys_in_hand:
+            raise AssertionError(self.error_string + "Attempted to receive key when there are already more than " + str(self.allowable_keys_in_hand + 1) + " keys in hand!")
 
         if key_name not in self.keys_in_hand:
             self.keys_in_hand[key_name] = 1
         else:
             self.keys_in_hand[key_name] += 1
+
+
+
 
     def throw_key(self, key):
         self.check_if_key_in_dictionary(key)
@@ -82,7 +98,7 @@ class Player_Class:
         self.check_if_key_in_dictionary(option_key)
 
         if option_key in self.keys_in_hand:
-            if self.keys_in_hand[option_key] >= 2:
+            if self.keys_in_hand[option_key] == 2:
                 return True
 
         return False
@@ -99,7 +115,8 @@ class Player_Class:
             raise AssertionError(self.error_string + "Tried to pong a key that we do not own")
 
         if self.keys_in_hand[option_key] == 3:
-            self.keys_for_display[option_key] = 3
+            self.pong_in_hand[option_key] = 3
+            self.pong_done += 1
             return
         else:
             raise AssertionError(self.error_string + "We do not have exactly 3 of the same key for display after pong!")
@@ -116,10 +133,42 @@ class Player_Class:
 
 
 
+    def check_kong(self, option_key):
+        self.check_if_key_in_dictionary(option_key)
+
+        if option_key in self.keys_in_hand:
+            if self.keys_in_hand[option_key] == 3:
+                return True
+
+        return False
+
+
+
+
+    def do_kong(self, option_key):
+        # we treat kong the same as a pong for now
+        self.check_if_key_in_dictionary(option_key)
+
+        if option_key in self.keys_in_hand:
+            self.keys_in_hand += 1
+        else:
+            raise AssertionError(self.error_string + "Tried to kng a key that we do not own")
+
+        if self.keys_in_hand[option_key] == 4:
+            self.pong_in_hand[option_key] = 4
+            self.pong_done += 1
+            self.allowable_keys_in_hand += 1
+            return
+        else:
+            raise AssertionError(self.error_string + "We do not have exactly 4 of the same key for display after kong!")
+
+        return True
+
+
+
 
     def do_chi(self, option_key):
         pass
-
 
 
 
@@ -133,18 +182,43 @@ class Player_Class:
     def is_win(self):
         complete_sets = 0
 
-        for _, value in self.keys_in_hand:
+        complete_sets += self.pong_done + self.chi_done
+
+        current_hand_for_check = self.keys_in_hand
+
+        for key, value in self.chi_in_hand:
+            current_hand_for_check[key] -= value
+
+            if current_hand_for_check[key] == 0:
+                del current_hand_for_check[key]
+            elif current_hand_for_check[key] < 0:
+                raise Exception(self.error_string + "Chi set has more keys than in keys in hand during check win!")
+
+        for key, value in self.pong_in_hand:
+            current_hand_for_check[key] -= value
+
+            if current_hand_for_check[key] == 0:
+                del current_hand_for_check[key]
+            elif current_hand_for_check[key] < 0:
+                raise Exception(self.error_string + "Pong set has more keys than in keys in hand during check win!")
+
+        for key, value in current_hand_for_check:
             if value >= 3:
                 complete_sets += 1
+                current_hand_for_check[key] -= 3
 
-            if value > 4:
-                raise Exception(self.error_string + "Somehow we have more than sets of 4 when checking for win!")
+                if current_hand_for_check[key] == 0:
+                    del current_hand_for_check[key]
 
-        if complete_sets > 4:
-            raise Exception("")
+        # INSERT CHECK IF SEQUENTIAL CODE HERE
 
         if complete_sets == 4:
-            return True
-        else:
-            return False
+            if len(current_hand_for_check) == 1:
+                if list(current_hand_for_check.values())[0] == 2:
+                    return True
+
+        return False
+
+
+
 

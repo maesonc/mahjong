@@ -9,15 +9,15 @@ class Key_Class:
     latest_thrown_key = None
     key_dictionary= [
         '1man', '2man', '3man', '4man', '5man', '6man', '7man', '8man', '9man',
-        
+
         '1sok', '2sok', '3sok', '4sok', '5sok', '6sok', '7sok', '8sok', '9sok',
-        
+
         '1tong', '2tong', '3tong', '4tong', '5tong', '6tong', '7tong', '8tong', '9tong',
-        
+
         'dong', 'nan', 'sai', 'bok',
-        
+
         'hongzhong', 'chengchoi', 'bakban',
-        
+
         'fa1', 'fa2', 'fa3', 'fa4'
         ]
 
@@ -78,4 +78,4 @@ class Key_Class:
     def give_latest_thrown_key(self):
         return self.latest_thrown_key
 
-        
+

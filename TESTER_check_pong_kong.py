@@ -9,7 +9,7 @@ Keys = Key_Class()
 Player = Listed_Player_Class(0)
 
 for _ in range(2):
-    Player.get_key('1man')
+    Player.add_key('1man')
 
 print("Current keys in hand: ")
 print(Player.keys_in_hand)

@@ -104,7 +104,6 @@ class Listed_Player_Class:
 
         return (key_suit, key_rank)
 
-    
 
     # returns a key name string given a key index
     def key_index_to_name(self, suit_index, rank_index):
@@ -177,9 +176,9 @@ class Listed_Player_Class:
         return key_strings
 
 
-    # gets a key and sorts it into our own hand
+    # adds a key and sorts it into our own hand
     # returns an indicator, if true then we have received a flower and it is our turn again
-    def get_key(self, key):
+    def add_key(self, key):
 
         # sanity check for number of keys in hand
         if self.count_keys() > self.__allowable_keys_in_hand__:
@@ -293,7 +292,7 @@ class Listed_Player_Class:
 
     # Checks if our hand is a winning hand
     def __recursive_check_win__(self, keys_left):
-        # print(keys_left)
+        #print(keys_left)
 
         # check for eyes
         if np.sum(keys_left) == 2:
@@ -315,7 +314,7 @@ class Listed_Player_Class:
                             if (keys_left[suit_index][rank_index+0] > 0
                             and keys_left[suit_index][rank_index+1] > 0
                             and keys_left[suit_index][rank_index+2] > 0):
-                                # if we have a sequential set, remove that set from keys_left
+                                # if we have a sequential set, for not remove that set from keys_left
                                 keys_left[suit_index][rank_index+0] -= 1
                                 keys_left[suit_index][rank_index+1] -= 1
                                 keys_left[suit_index][rank_index+2] -= 1

@@ -95,7 +95,7 @@ Same as Player_Class but stores keys in arrays instead
     - Returns list of all flowers owned as strings
     - Returns: [string, ...]
 
-- **get_key**
+- **add_key**
     - adds key to ourself, returns True if we have received a flower to indicate we need to take another key
     - Returns: bool
 

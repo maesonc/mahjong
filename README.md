@@ -26,7 +26,7 @@ Class that provides a centralized location for all the keys, handles all outputs
     - Gives string representing latest thrown key
     - Return: latest_thrown_key(string)
 
-### Player_Class
+### Player_Class (IDEALLY THIS SHOULD BE DEPRECATED)
 Individual template for creating players (default 4), handles keys in hand for individual players, abilities to pong/chi
 
 - **check_if_key_in_dictionary(key)** - Jet

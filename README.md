@@ -118,3 +118,7 @@ Same as Player_Class but stores keys in arrays instead
 
 - **do_kong**
     - performs kong
+
+- **check_win**
+    - checks if the current hand is a winning hand
+    - Returns: bool

@@ -14,6 +14,13 @@ class Listed_Player_Class:
         else:
             raise AssertionError("Cannot instantiate player with number not between 0 and 3!")
 
+        self.__set_empty_hand__()
+
+        self.__error_string__ = "Player " + str(self.player_number) + " error! "
+
+
+    # clears the players hand
+    def __set_empty_hand__(self):
         # store suited keys as arrays instead to make it easier to check_win
         # dim0 = suit; 0 = man, 1 = sok, 2 = tong, 3 = no_suit
         # dim1 = rank; index starting from 1, so element 0 is unused
@@ -34,8 +41,6 @@ class Listed_Player_Class:
         self.__chi_done__ = 0
 
         self.__allowable_keys_in_hand__ = 13
-
-        self.__error_string__ = "Player " + str(self.player_number) + " error! "
 
 
     # checks if the key is in the dictionary
@@ -241,7 +246,7 @@ class Listed_Player_Class:
 
 
     # performs pong, shifts pong keys to __pong_in_hand__ list and
-    # removed from array
+    # removed from keys_in_hand
     def do_pong(self, key):
         self.__do_double_triplet__(key, 2)
 
@@ -252,8 +257,109 @@ class Listed_Player_Class:
 
 
     # performs kong, shifts kong keys to __pong_in_hand__ list and
-    # removed from array
+    # removed from keys_in_hand
     def do_kong(self, key):
         self.__do_double_triplet__(key, 3)
+
+    # MAESON PUT YOUR CHI HERE
+    # MAESON PUT YOUR CHI HERE
+    # MAESON PUT YOUR CHI HERE
+    # MAESON PUT YOUR CHI HERE
+    # MAESON PUT YOUR CHI HERE
+    # MAESON PUT YOUR CHI HERE
+    # MAESON PUT YOUR CHI HERE
+    # MAESON PUT YOUR CHI HERE
+    # MAESON PUT YOUR CHI HERE
+    # MAESON PUT YOUR CHI HERE
+    # MAESON PUT YOUR CHI HERE
+    # MAESON PUT YOUR CHI HERE
+    # MAESON PUT YOUR CHI HERE
+    # MAESON PUT YOUR CHI HERE
+    # MAESON PUT YOUR CHI HERE
+    # MAESON PUT YOUR CHI HERE
+    # MAESON PUT YOUR CHI HERE
+
+
+    # preliminary check_win for non-suited
+    def __prelim_check_win__(self, keys_left):
+        # if our non-suited keys only have one of their kind
+        # we have neither eyes, kong, or pong, no solution
+        for key in keys_left[-1]:
+            if key == 1:
+                return False
+
+        return True
+
+
+    # Checks if our hand is a winning hand
+    def __recursive_check_win__(self, keys_left):
+        # print(keys_left)
+
+        # check for eyes
+        if np.sum(keys_left) == 2:
+            for keys in keys_left:
+                for key in keys:
+                    if key == 2:
+                        return True
+
+        # recursively find sets in our hand, one at a time
+        for suit_index, keys in enumerate(keys_left):
+            for rank_index, key in enumerate(keys):
+                # only proceed if the key we're looking at exists
+                if key > 0:
+                    # solve for suited keys first
+                    if 0 <= suit_index and suit_index <= 2:
+                        # upwards look for sequential
+                        if rank_index <= 7:
+                            # check if we have a sequential set
+                            if (keys_left[suit_index][rank_index+0] > 0
+                            and keys_left[suit_index][rank_index+1] > 0
+                            and keys_left[suit_index][rank_index+2] > 0):
+                                # if we have a sequential set, remove that set from keys_left
+                                keys_left[suit_index][rank_index+0] -= 1
+                                keys_left[suit_index][rank_index+1] -= 1
+                                keys_left[suit_index][rank_index+2] -= 1
+
+                                # pass remaining keys to recursively check
+                                # print("One sequential found")
+                                if self.__recursive_check_win__(keys_left):
+                                    return True
+                                else:
+                                    # if the sequential that we found is not a winning path
+                                    # we add the sequential back to the set and move one key to the right
+                                    # and recheck
+                                    keys_left[suit_index][rank_index+0] += 1
+                                    keys_left[suit_index][rank_index+1] += 1
+                                    keys_left[suit_index][rank_index+2] += 1
+
+                    # if we don't have a sequential set
+                    # or if our key index is more than 7 (because sequential lookup is 7, 8 ,9)
+                    # or if we're looking at non-suits
+                    if key == 3:
+                        # we have 3 of a kind, remove from keys_left
+                        # pass remaining keys to recursively check
+                        keys_left[suit_index][rank_index] -= 3
+                        # print("One set found")
+                        if self.__recursive_check_win__(keys_left):
+                            return True
+                        else:
+                            # if the set we found is not a winning path
+                            # add the set back to the set and move one step to the right
+                            # and recheck
+                            keys_left[suit_index][rank_index] += 3
+
+        return False
+
+
+    # check_win function that ties in prelim and recursive
+    def check_win(self):
+        if self.__prelim_check_win__(self.keys_in_hand):
+            if self.__recursive_check_win__(self.keys_in_hand):
+                return True
+
+        return False
+
+                                
+
 
 

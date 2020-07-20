@@ -67,7 +67,7 @@ Same as Player_Class but stores keys in arrays instead
 - **check_if_key_in_dictionary**
     - Checks if key is legit from dictionary, throws error otherwise
 
-- **check_if_key_is_suits**
+- **__check_if_key_is_suits__**
     - Checks if the key is from man, sok, tong
     - Returns: bool
 
@@ -104,3 +104,17 @@ Same as Player_Class but stores keys in arrays instead
 
 - **seen_key**
     - adds key to our list of seen keys, ie: key in the centre exposed pile
+
+- **check_pong**
+    - checks if we can do pong
+    - Returns: bool
+
+- **do_pong**
+    - performs pong
+
+- **check_kong**
+    - checks if we can do kong
+    - Returns: bool
+
+- **do_kong**
+    - performs kong

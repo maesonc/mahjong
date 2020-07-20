@@ -7,7 +7,12 @@ class Listed_Player_Class:
 
     def __init__(self, player_position):
 
-        self.player_number = None
+        self.player_number = player_position
+        
+        if 0 <= self.player_number and self.player_number <= 3:
+            pass
+        else:
+            raise AssertionError("Cannot instantiate player with number not between 0 and 3!")
 
         # store suited keys as arrays instead to make it easier to check_win
         # dim0 = suit; 0 = man, 1 = sok, 2 = tong, 3 = no_suit
@@ -23,31 +28,24 @@ class Listed_Player_Class:
         # pong and chi in hands are just string names appended as a list
         # we don't care to index these since they are fixed once performed
         # we only store them to help maintain fixed number of keys in hand
-        self.pong_in_hand = []
-        self.chi_in_hand = []
-        self.pong_done = 0
-        self.chi_done = 0
+        self.__pong_in_hand__ = []
+        self.__chi_in_hand__ = []
+        self.__pong_done__ = 0
+        self.__chi_done__ = 0
 
-        self.allowable_keys_in_hand = 13
+        self.__allowable_keys_in_hand__ = 13
 
-        self.error_string = "Player " + str(self.player_number) + " error! "
-
-        self.player_number = player_position
-
-        if 0 <= self.player_number and self.player_number <= 3:
-            pass
-        else:
-            raise AssertionError("Cannot instantiate player with number not between 0 and 3!")
+        self.__error_string__ = "Player " + str(self.player_number) + " error! "
 
 
     # checks if the key is in the dictionary
     def check_if_key_in_dictionary(self, key):
         if key not in self.key_dictionary:
-            raise Exception(self.error_string + "Unknown key!")
+            raise Exception(self.__error_string__ + "Unknown key!")
 
 
     # checks if the key is part of suits
-    def check_if_key_is_suits(self, key):
+    def __check_if_key_is_suits__(self, key):
         if key[0].isnumeric():
             return True
         else:
@@ -62,7 +60,7 @@ class Listed_Player_Class:
         key_suit = -1
         key_rank = -1
 
-        if not self.check_if_key_is_suits(key):
+        if not self.__check_if_key_is_suits__(key):
             if key == 'dong':
                 key_suit = 3
                 key_rank = 1
@@ -109,7 +107,7 @@ class Listed_Player_Class:
             if 1 <= rank_index and rank_index <= 9:
                 pass
         else:
-            raise Exception(self.error_string + "Attempted to convert unknown key!")
+            raise Exception(self.__error_string__ + "Attempted to convert unknown key!")
 
         # this line won't be reached if rank is not between 1-9 and
         # suit index is not between 0 and 3
@@ -142,12 +140,12 @@ class Listed_Player_Class:
             elif rank_index == 7:
                 return 'bakban'
             else:
-                raise Exception(self.error_string + "Attempted to convert unknown key!")
+                raise Exception(self.__error_string__ + "Attempted to convert unknown key!")
 
 
     # count number of keys owned
     def count_keys(self):
-        return np.sum(self.keys_in_hand) + len(self.pong_in_hand) + len(self.chi_in_hand)
+        return np.sum(self.keys_in_hand) + len(self.__pong_in_hand__) + len(self.__chi_in_hand__)
 
 
     # count number of keys including flowers
@@ -179,8 +177,8 @@ class Listed_Player_Class:
     def get_key(self, key):
 
         # sanity check for number of keys in hand
-        if self.count_keys() > self.allowable_keys_in_hand:
-            raise AssertionError(self.error_string + "Attempted to receive key when there are already more than " + str(self.allowable_keys_in_hand + 1) + " keys in hand!")
+        if self.count_keys() > self.__allowable_keys_in_hand__:
+            raise AssertionError(self.__error_string__ + "Attempted to receive key when there are already more than " + str(self.__allowable_keys_in_hand__ + 1) + " keys in hand!")
 
         # sort keys, automatically checks if key is legit
         suit, rank = self.key_name_to_index(key)
@@ -200,7 +198,7 @@ class Listed_Player_Class:
         if self.keys_in_hand[suit][rank] > 0:
             self.keys_in_hand[suit][rank] -= 1
         else:
-            raise AssertionError(self.error_string + "Attempted to throw away a key we do not own!")
+            raise AssertionError(self.__error_string__ + "Attempted to throw away a key we do not own!")
 
         return key
 
@@ -213,5 +211,49 @@ class Listed_Player_Class:
         else:
             flower_rank = int(key[-1])
             self.flowers_seen[flower_rank] += 1
+
+
+    # helper function for check pong/kong to prevent repetition of code
+    def __check_double_triplet__(self, key, count):
+        suit_index, rank_index = self.key_name_to_index(key)
+        
+        if self.keys_in_hand[suit_index][rank_index] == count:
+            return True
+
+        return False
+
+    
+    # helper function for do pong/kong to prevent repetition of code
+    def __do_double_triplet__(self, key, count):
+        suit_index, rank_index = self.key_name_to_index(key)
+        
+        self.keys_in_hand[suit_index][rank_index] -= count
+        self.__pong_in_hand__.extend([key for _ in range(count + 1)])
+        self.__pong_done__ += 1
+
+        if self.keys_in_hand[suit_index][rank_index] != 0:
+            raise AssertionError(self.__error_string__ + "Something went wrong, we still have " + key + " in hand even after pong x" + str(count) + "!")
+
+
+    # checks if pong is available
+    def check_pong(self, key):
+        return self.__check_double_triplet__(key, 2)
+
+
+    # performs pong, shifts pong keys to __pong_in_hand__ list and
+    # removed from array
+    def do_pong(self, key):
+        self.__do_double_triplet__(key, 2)
+
+
+    # checks if kong is available
+    def check_kong(self, key):
+        return self.__check_double_triplet__(key, 3)
+
+
+    # performs kong, shifts kong keys to __pong_in_hand__ list and
+    # removed from array
+    def do_kong(self, key):
+        self.__do_double_triplet__(key, 3)
 
 

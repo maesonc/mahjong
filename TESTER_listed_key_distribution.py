@@ -41,3 +41,4 @@ print("Stack" + " has " + str(key_counts[4]) + " remaining.")
 
 total_key_count = np.sum(key_counts)
 print("Total key count is " + str(total_key_count))
+

@@ -6,6 +6,10 @@ Mahjong project to build a game engine for mahjong, and hopefully build an RL ag
 - 2 blank lines before start of new function in class
 - be as descriptive as possible (ie: number_of_keys, ~~num_keys~~)
 
+- **FUNCTION_NAME**
+    - DESCRIPTION
+    - Returns:
+
 ## Class Descriptions
 
 ### Key_Class
@@ -56,3 +60,47 @@ Individual template for creating players (default 4), handles keys in hand for i
     - Checks for hand completion with in-hand keys
     - Returns: (percent_complete, is_win)
 
+
+### Listed_Player_Class
+Same as Player_Class but stores keys in arrays instead
+
+- **check_if_key_in_dictionary**
+    - Checks if key is legit from dictionary, throws error otherwise
+
+- **check_if_key_is_suits**
+    - Checks if the key is from man, sok, tong
+    - Returns: bool
+
+- **key_name_to_index**
+    - returns tuple of (suit_index, rank_index) of a given key name string, index refers to keys_in_hand
+    - Returns: tuple (int, int)
+
+- **key_index_to_name**
+    - returns key name string given index of key
+    - Returns: string
+
+- **count_keys**
+    - Counts number of keys owned, minus flowers
+    - Returns: int
+
+- **count_keys_with_flowers**
+    - Counts number of keys owned, including flowers
+    - Returns: int
+
+- **get_all_keys**
+    - Returns list of all keys owned as strings, excluding flowers
+    - Returns: [string, ...]
+
+- **get_all_flowers**
+    - Returns list of all flowers owned as strings
+    - Returns: [string, ...]
+
+- **get_key**
+    - adds key to ourself, returns True if we have received a flower to indicate we need to take another key
+    - Returns: bool
+
+- **throw_key**
+    - throws away a key based on name string
+
+- **seen_key**
+    - adds key to our list of seen keys, ie: key in the centre exposed pile

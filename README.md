@@ -87,11 +87,23 @@ Same as Player_Class but stores keys in arrays instead
     - Counts number of keys owned, including flowers
     - Returns: int
 
-- **get_all_keys**
-    - Returns list of all keys owned as strings, excluding flowers
+- **string_all_keys**
+    - Returns list of all keys owned as strings, inluding chis and pongs, excluding flowers
     - Returns: [string, ...]
 
-- **get_all_flowers**
+- **string_all_pongs**
+    - Returns list of all pongs owned as strings
+    - Returns: [string, ...]
+
+- **string_all_chis**
+    - Returns list of all chis owned as strings
+    - Returns: [string, ...]
+
+- **string_all_free_keys**
+    - Returns list of all keys owned as strings, excluding chis, pongs, and flowers
+    - Returns: [string, ...]
+
+- **string_all_flowers**
     - Returns list of all flowers owned as strings
     - Returns: [string, ...]
 

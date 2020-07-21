@@ -32,11 +32,9 @@ class Listed_Player_Class:
         self.keys_seen = np.zeros((4, 10))
         self.flowers_seen = np.zeros(5)
 
-        # pong and chi in hands are just string names appended as a list
-        # we don't care to index these since they are fixed once performed
-        # we only store them to help maintain fixed number of keys in hand
-        self.__pong_in_hand__ = []
-        self.__chi_in_hand__ = []
+        # pong and chi in hands
+        self.__pong_in_hand__ = np.zeros((4, 10))
+        self.__chi_in_hand__ = np.zeros((4, 10))
         self.__pong_done__ = 0
         self.__chi_done__ = 0
 
@@ -149,7 +147,7 @@ class Listed_Player_Class:
 
     # count number of keys owned
     def count_keys(self):
-        return np.sum(self.keys_in_hand) + len(self.__pong_in_hand__) + len(self.__chi_in_hand__)
+        return np.sum(self.keys_in_hand) + np.sum(self.__pong_in_hand__) + np.sum(self.__chi_in_hand__)
 
 
     # count number of keys including flowers
@@ -157,18 +155,41 @@ class Listed_Player_Class:
         return self.count_keys() + np.sum(self.flowers_in_hand)
 
 
-    # return all keys as an array of key names
-    def get_all_keys(self):
+    # get all for keys, pong, and chis
+    def __string_all__(self, key_set):
+        if np.shape(key_set) != np.shape(self.keys_in_hand):
+            raise AssertionError(self.__error_string__ + "Unknown key set, can't convert to stringarray")
+
         key_strings = []
-        for suit_index, lists in enumerate(self.keys_in_hand):
-            for rank_index, keys in enumerate(lists):
-                for _ in range(int(keys)):
+        for suit_index, keys in enumerate(key_set):
+            for rank_index, key in enumerate(keys):
+                for _ in range(int(key)):
                     key_strings.append(self.key_index_to_name(suit_index, rank_index))
         return key_strings
 
 
+    # return all keys as an array of key names, including pong and chi
+    def string_all_keys(self):
+        return self.__string_all__(self.keys_in_hand + self.__pong_in_hand__ + self.__chi_in_hand__)
+
+    
+    # returns all pongs as an array of key names
+    def string_all_pong(self):
+        return self.__string_all__(self.__pong_in_hand__)
+
+
+    # returns all chis as an array of key names
+    def string_all_chi(self):
+        return self.__string_all__(self.__chi_in_hand__)
+
+    
+    # returns all free keys as an array of key names, without pong and chi
+    def string_all_free_keys(self):
+        return self.__string_all__(self.keys_in_hand)
+
+
     # return flowers as array of flower names
-    def get_all_flowers(self):
+    def string_all_flowers(self):
         key_strings = []
         for flower_number, count in enumerate(self.flowers_in_hand):
             for _ in range(int(count)):
@@ -232,7 +253,7 @@ class Listed_Player_Class:
         suit_index, rank_index = self.key_name_to_index(key)
         
         self.keys_in_hand[suit_index][rank_index] -= count
-        self.__pong_in_hand__.extend([key for _ in range(count + 1)])
+        self.__pong_in_hand__[suit_index][rank_index] += count
         self.__pong_done__ += 1
 
         if self.keys_in_hand[suit_index][rank_index] != 0:
@@ -314,7 +335,7 @@ class Listed_Player_Class:
                             if (keys_left[suit_index][rank_index+0] > 0
                             and keys_left[suit_index][rank_index+1] > 0
                             and keys_left[suit_index][rank_index+2] > 0):
-                                # if we have a sequential set, for not remove that set from keys_left
+                                # if we have a sequential set, remove that set from keys_left
                                 keys_left[suit_index][rank_index+0] -= 1
                                 keys_left[suit_index][rank_index+1] -= 1
                                 keys_left[suit_index][rank_index+2] -= 1

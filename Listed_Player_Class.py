@@ -4,6 +4,7 @@ import numpy as np
 class Listed_Player_Class:
 
     key_dictionary = Key_Class.key_dictionary
+    key_mapping = Key_Class.key_mapping
 
     def __init__(self, player_position):
 
@@ -58,6 +59,7 @@ class Listed_Player_Class:
     # returns tuple of (key_suit, key_rank) given a key
     # otherwise, returns (-1, -1) for flowers
     def key_name_to_index(self, key):
+
         self.check_if_key_in_dictionary(key)
 
         key_suit = -1
@@ -75,7 +77,7 @@ class Listed_Player_Class:
                 key_rank = 3
             elif key == 'bok':
                 key_suit = 3
-                key_rank = 3
+                key_rank = 4
             elif key == 'hongzhong':
                 key_suit = 3
                 key_rank = 5
@@ -105,44 +107,15 @@ class Listed_Player_Class:
 
     # returns a key name string given a key index
     def key_index_to_name(self, suit_index, rank_index):
-        if 0 <= suit_index and suit_index <= 3:
-            if 1 <= rank_index and rank_index <= 9:
-                pass
-        else:
-            raise Exception(self.__error_string__ + "Attempted to convert unknown key!")
 
-        # this line won't be reached if rank is not between 1-9 and
-        # suit index is not between 0 and 3
         if 0 <= suit_index and suit_index <= 2:
-            string_suit = None
-            string_rank = str(rank_index)
-
-            if suit_index == 0:
-                string_suit = 'man'
-            elif suit_index == 1:
-                string_suit = 'sok'
-            elif suit_index == 2:
-                string_suit = 'tong'
-
-            return string_rank + string_suit
-        else:
-            # we will only reach here if and only if suit_index = 3
-            if rank_index == 1:
-                return 'dong'
-            elif rank_index == 2:
-                return 'nan'
-            elif rank_index == 3:
-                return 'sai'
-            elif rank_index == 4:
-                return 'bok'
-            elif rank_index == 5:
-                return 'hongzhong'
-            elif rank_index == 6:
-                return 'chengchoi'
-            elif rank_index == 7:
-                return 'bakban'
-            else:
-                raise Exception(self.__error_string__ + "Attempted to convert unknown key!")
+            if 1 <= rank_index and rank_index <= 9:
+                return self.key_mapping[suit_index][rank_index]
+        elif suit_index == 3:
+            if 1 <= rank_index and rank_index <= 7:
+                return self.key_mapping[suit_index][rank_index]
+        
+        raise Exception(self.__error_string__ + "Attempted to convert unknown key!")
 
 
     # count number of keys owned

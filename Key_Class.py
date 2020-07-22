@@ -20,6 +20,15 @@ class Key_Class:
 
         'fa1', 'fa2', 'fa3', 'fa4'
         ]
+    key_mapping = [
+        [None, '1man', '2man', '3man', '4man', '5man', '6man', '7man', '8man', '9man'],
+
+        [None, '1sok', '2sok', '3sok', '4sok', '5sok', '6sok', '7sok', '8sok', '9sok'],
+
+        [None, '1tong', '2tong', '3tong', '4tong', '5tong', '6tong', '7tong', '8tong', '9tong'],
+
+        [None, 'dong', 'nan', 'sai', 'bok', 'hongzhong', 'chengchoi', 'bakban', None, None]
+        ]
 
 
     def __init__(self):

@@ -226,7 +226,7 @@ class Listed_Player_Class:
         suit_index, rank_index = self.key_name_to_index(key)
         
         self.keys_in_hand[suit_index][rank_index] -= count
-        self.__pong_in_hand__[suit_index][rank_index] += count
+        self.__pong_in_hand__[suit_index][rank_index] += count + 1
         self.__pong_done__ += 1
 
         if self.keys_in_hand[suit_index][rank_index] != 0:

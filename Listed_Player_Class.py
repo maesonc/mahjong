@@ -351,8 +351,3 @@ class Listed_Player_Class:
                 return True
 
         return False
-
-                                
-
-
-
